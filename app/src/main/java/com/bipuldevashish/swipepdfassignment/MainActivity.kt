@@ -157,7 +157,7 @@ class MainActivity : AppCompatActivity() {
                 Layout.Alignment.ALIGN_NORMAL,
                 1.1f,
                 5.0f,
-                true
+                false
             )
 
             val textX = 40F
@@ -175,7 +175,7 @@ class MainActivity : AppCompatActivity() {
                 Layout.Alignment.ALIGN_NORMAL,
                 1.1f,
                 5.0f,
-                true
+                false
             )
 
             val txtX = 0F
@@ -246,8 +246,11 @@ class MainActivity : AppCompatActivity() {
         try {
             startActivity(pdfOpenIntent)
         } catch (activityNotFoundException: ActivityNotFoundException) {
-            Toast.makeText(this@MainActivity, "There is no app to load corresponding PDF", Toast.LENGTH_LONG)
-                .show()
+            runOnUiThread {
+                Toast.makeText(this@MainActivity, "There is no app to load corresponding PDF", Toast.LENGTH_LONG)
+                    .show()
+            }
+
         }
     }
 }
