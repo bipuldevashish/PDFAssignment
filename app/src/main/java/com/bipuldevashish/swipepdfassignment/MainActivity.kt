@@ -12,7 +12,6 @@ import android.graphics.pdf.PdfDocument
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.StrictMode
 import android.text.Layout
 import android.text.StaticLayout
 import android.text.TextPaint
@@ -97,33 +96,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun previewPdf(file: File) {
-        val packageManager: PackageManager? = this.packageManager
-        val testIntent = Intent(Intent.ACTION_VIEW)
-        testIntent.type = "application/pdf"
-        val list: List<*> =
-            packageManager!!.queryIntentActivities(testIntent, PackageManager.MATCH_DEFAULT_ONLY)
-        //  if (list.isNotEmpty()) {
-        val builder = StrictMode.VmPolicy.Builder()
-        //  StrictMode.setVmPolicy(builder.build())
-        val intent = Intent()
-        intent.action = Intent.ACTION_VIEW
-        val uri1 = FileProvider.getUriForFile(
-            this,
-            this.applicationContext.packageName.toString() + ".fileprovider",
-            file
-        )
-        intent.setDataAndType(uri1, "application/pdf")
-        this.startActivity(intent)
-        /*  } else {
-              Toast.makeText(
-                  this,
-                  "Download a PDF Viewer to see the generated PDF",
-                  Toast.LENGTH_SHORT
-              ).show()
-          }*/
-    }
-
     private fun checkPermissions(): Boolean {
         // on below line we are creating a variable for both of our permissions.
 
@@ -158,7 +130,6 @@ class MainActivity : AppCompatActivity() {
             arrayOf(READ_EXTERNAL_STORAGE, WRITE_EXTERNAL_STORAGE), PERMISSION_CODE
         )
     }
-
 
     private suspend fun generatePDF() {
 
@@ -254,7 +225,6 @@ class MainActivity : AppCompatActivity() {
 
 
     }
-
 
     private fun openPDF() {
 
